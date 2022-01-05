@@ -1,0 +1,79 @@
+﻿@using doan.Models
+@using PagedList.Mvc
+@model  PagedList.PagedList<doan.Models.SanPham>
+
+@helper Truncate (string input,int length)
+    {
+        if(input.Length < length)
+        {
+            @input
+        }    
+        else
+        {
+            @input.Substring(0,length)<text>...</text>
+        }    
+    }
+@{
+    ViewBag.Title = "Index";
+}
+<!-- MAIN CONTENT-->
+<div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive table--no-card m-b-30 ">
+                        <table class="table table-borderless table-striped table-earning">
+                            <thead>
+                                <tr>
+                                    <th>Mã sp</th>
+                                    <th>Tên</th>
+                                    <th>Ảnh bìa</th>
+                                    <th>Giá bán</th>
+                                    <th>Số lượng tồn</th>
+                                    <th>Ngày cập nhật</th>
+                                    <th style="text-align:center">Nhóm lệnh</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (SanPham item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(Modelitem => item.maSP)</td>
+                                        <td>
+                                            @Truncate(item.tenSP, 20)
+                                        </td>
+                                        <td><img src="~/Storage/Image/product/@item.hinhDD" /></td>
+                                        <td>@String.Format("{0:#,##0 đ}", item.giaBan)</td>
+                                        <td style="text-align:center">@Html.DisplayFor(Modelitem => item.soluong)</td>
+                                        <td>@Html.DisplayFor(Modelitem => item.ngayDang)</td>
+                                        <td style="text-align:center">
+                                            <a href="@Url.Action("Xoasanpham","Allproducts",new { MASP = item.maSP })" class="btn btn-danger">Xoá </a>
+                                            <a href="@Url.Action("Suasp","Allproducts",new { MASP = item.maSP })" class="btn btn-danger">Sửa</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <div>
+                            Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+                            <div style="display: inline-block; padding: 14px 664px;">
+                                @Html.PagedListPager(Model, Page => Url.Action("Tongsp", new { Page = Page }))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END ALLPRODUCTS-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="copyright">
+                        <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                        <p style="font-size:large; color:red">Design by Joker_Team</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END MAIN CONTENT-->

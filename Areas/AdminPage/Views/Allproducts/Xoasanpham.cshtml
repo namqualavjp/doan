@@ -1,0 +1,88 @@
+﻿@model doan.Models.SanPham
+
+@{
+    ViewBag.Title = "Xoasanpham";
+    Layout = "~/Areas/AdminPage/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">THÔNG TIN SẢN PHẨM CẦN XOÁ</div>
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h3 class="text-center title-2">Bạn có muốn xoá sản phẩm đã chọn không </h3>
+                            </div>
+                            <hr />
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken();
+                                <div class="form-group">
+                                    <label for="cc-name" class="control-label mb-1">Mã sản phẩm: </label>
+                                    <b>@Html.DisplayFor(model => model.maSP)</b>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cc-name" class="control-label mb-1">Tên sản phẩm:  </label>
+                                    <b>@Html.DisplayFor(model => model.tenSP)</b>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label mb-1">Hình sản phẩm</label>
+                                    <div>
+                                        <img src="~/Storage/Image/product/@Model.hinhDD" style="width: 100px" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label mb-1">Nội dung tóm tắt: </label>
+                                    <b>@Html.DisplayFor(model => model.ndTomTat)</b>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label mb-1">Ngày đăng: </label>
+                                    <b>
+                                        @String.Format("{0:dd/MM/yyyy}", Model.ngayDang)
+                                    </b>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label mb-1">Giá bán: </label>
+                                    <b>
+                                        @String.Format("{0:#,##0 đ}", Model.giaBan)
+                                    </b>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="control-label mb-1">Nhà sản xuất: </label>
+                                            <b>
+                                                @Html.DisplayFor(model => model.nhaSanXuat)
+                                            </b>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="control-label mb-1">Số lượng: </label>
+                                            <b>
+                                                @Html.DisplayFor(model => model.soluong)
+                                            </b>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button type="submit" class="btn btn-lg btn-info btn-block">
+                                        <i class="fa fa-lock fa-lg"></i>&nbsp;
+                                        <span id="payment-button-amount">Xoá</span>
+                                        <span id="payment-button-sending" style="display:none;">Sending…</span>
+                                    </button>
+                                </div>
+                                <div>
+                                    @Html.ActionLink("Trở về", "Tongsp")
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
